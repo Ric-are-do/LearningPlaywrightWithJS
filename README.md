@@ -25,6 +25,8 @@ and videos. **New here? Start with these.**
 
 → [Full index with all external resources](./lessons-learned/README.md)
 
+📝 [**Notes for Ricardo**](./notes-for-ricardo.md) — personal todo list, gotchas, and running log.
+
 ## The two commands that teach you the most
 
 | Command | Why it matters |
