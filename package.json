@@ -1,0 +1,27 @@
+{
+  "name": "playwright-js-learning",
+  "version": "1.0.0",
+  "description": "A hands-on sandbox for learning Playwright with JavaScript",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:chromium": "playwright test --project=chromium",
+    "report": "playwright show-report",
+    "codegen": "playwright codegen https://demo.playwright.dev/todomvc/",
+    "trace": "playwright show-trace"
+  },
+  "keywords": [
+    "playwright",
+    "testing",
+    "learning"
+  ],
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^22.20.2"
+  }
+}
