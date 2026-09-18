@@ -18,14 +18,17 @@ import { test, expect } from "@playwright/test";
  */
 
 test.describe("lucindapraticetest", () => {
-  
   test.beforeEach(async ({ page }) => {
     await page.goto("https://thinking-tester-contact-list.herokuapp.com/");
   });
 
   test("login test", async ({ page }) => {
     await page.getByRole("button", { name: "Sign up" }).click();
-    //await page.getByRole('')
+    await page.getByRole("textbox", { name: "First Name" }).fill("Bob");
+    await page.getByRole("textbox", { name: "Last Name" }).fill("The Builder");
+    await page.getByRole("textbox", { name: "Email" }).fill("builder111@gmail.com");
+    await page.getByRole("textbox", { name: "Password" }).fill("bob123123");
+    await page.getByRole("button", { name: "Submit" }).click();
 
     //await expect(page.getByRole('heading', { name: 'Sign up' })).toBeVisible();
 
