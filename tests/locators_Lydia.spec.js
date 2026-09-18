@@ -27,9 +27,11 @@ test.describe('Lydia practice tests', () => {
 
   test('signup test', async ({ page }) => {
     await page.getByRole('button', { name: 'Sign up' }).click();
-
-
-
+    await page.getByRole('textbox', { name: 'First Name'}).fill ('Ronald');
+    await page.getByRole('textbox', {name: 'Last Name'}).fill ('Smith');
+    await page.getByRole('textbox', {name: 'Email'}).fill ('rsmith@test.com');
+    await page.getByRole('textbox', {name: 'Password'}).fill ('GoodStuff007');
+    await page.getByRole('button', {name: 'Submit'}).click();
 
   })
 
@@ -54,5 +56,4 @@ test.describe('Lydia practice tests', () => {
 
 
 
-});
 
