@@ -32,6 +32,7 @@ export default defineConfig({
          page.goto('/')         -> https://demo.playwright.dev/           wrong!
        An absolute URL (https://playwright.dev/) ignores baseURL entirely. */
     baseURL: 'https://demo.playwright.dev/todomvc/',
+    headless: false,
 
     /* Artifacts kept only for failures, so passing runs stay fast and tidy.
        The trace is the single best debugging tool Playwright ships: it records a
