@@ -44,8 +44,8 @@ test.describe('Lydia practice tests', () => {
   });
 
 
- test('adding new contacts', async ({page}) => {
-   await expect(page.getByRole('heading', { name: 'Add Contact' })).toBeVisible();
+ test('adding new contacts', async ({ page}) => {
+    await expect(page.getByRole('heading', { name: 'Add Contact' })).toBeVisible();
     await page.getByRole('textbox', { name: 'Email' }).fill('rsmith@test.com');
     await page.getByRole('textbox', { name: 'Password' }).fill('GoodStuff007');
     await page.getByRole('button', { name: 'Submit' }).click();
@@ -63,17 +63,6 @@ test.describe('Lydia practice tests', () => {
     await page.getByRole ('textbox', { name: 'Country:'}).fill ('Wonderland');
     await page.getByRole ('button', { name: 'Submit'}).click();
 
-
-
-
-
-
-
-  
-  
-  
-  
-  
 
  });
 
