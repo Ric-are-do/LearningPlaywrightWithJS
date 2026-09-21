@@ -33,10 +33,35 @@ test.describe('Lydia practice tests', () => {
     await page.getByRole('textbox', {name: 'Password'}).fill ('GoodStuff007');
     await page.getByRole('button', {name: 'Submit'}).click();
 
-  })
+  });
 
 
-})
+  test('login test', async ({ page }) => {
+    await page.getByRole('textbox', { name: 'Email' }).fill('rsmith@test.com');
+    await page.getByRole('textbox', { name: 'Password' }).fill('GoodStuff007');
+    await page.getByRole('button', { name: 'Submit'}).click(); 
+
+  });
+
+
+ test('adding new contacts', async ({page}) => {
+   await expect(page.getByRole('heading', { name: 'Add Contact' })).toBeVisible();
+    await page.getByRole('textbox', { name: 'Email' }).fill('rsmith@test.com');
+    await page.getByRole('textbox', { name: 'Password' }).fill('GoodStuff007');
+    await page.getByRole('button', { name: 'Submit' }).click();
+    await page.getByRole('button', { name: 'Add a New Contact'}).click();
+    await page.getByRole('textbox', { name: 'First Name:'}).fill ('Samantha');
+    await page.getByRole ('textbox', { name: 'Last Name:'}).fill ('Dirr');
+    await page.getByRole ('textbox', { name: 'Date of Birth:'}).fill ('1990-01-12'); 
+    await page.getByRole ('textbox', { name: 'Email:'}).fill ('sdirr@testers.com');
+    await page.getByRole ('textbox', { name: 'Phone:'}).fill ('0820874464');
+    await page.getByRole ('textbox', { name: 'Street Address 1:'}).fill ('702 Bates Road');
+    await page.getByRole ('textbox', { name: 'Street Address 2:'}).fill ('Moreletapark');
+    await page.getByRole ('textbox', { name: 'City:'}).fill ('Pretoria'); 
+    await page.getByRole ('textbox', { name: 'State or Province:'}).fill ('Gautent'); 
+    await page.getByRole ('textbox', { name: 'Postal Code:'}).fill ('0182');
+    await page.getByRole ('textbox', { name: 'Country:'}).fill ('Wonderland');
+    await page.getByRole ('button', { name: 'Submit'}).click();
 
 
 
@@ -44,13 +69,23 @@ test.describe('Lydia practice tests', () => {
 
 
 
+  
+  
+  
+  
+  
 
-//await expect(page.getByRole('heading', { name: 'Sign up' })).toBeVisible();
-//await page.getByRole('checkbox', { name: 'Subscribe' }).check();
+ });
+
+
+
+
+
+
+
 //await page.getByRole('button', { name: /submit/i }).click();
 
-
-
+});
 
 
 
