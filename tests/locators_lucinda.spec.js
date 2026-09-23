@@ -32,7 +32,7 @@ test.describe("lucindapraticetest", () => {
   });
 
 
-  test.describe("Login Test", () => {
+  test.describe("Login Test + Adding new contact", () => {
 
   test("login test", async ({ page }) => {
   await page.getByRole("textbox", { name: "Email" }).fill("builder111@gmail.com");
