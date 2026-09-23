@@ -26,23 +26,19 @@ test.describe("lucindapraticetest", () => {
     await page.getByRole("button", { name: "Sign up" }).click();
     await page.getByRole("textbox", { name: "First Name" }).fill("Bob");
     await page.getByRole("textbox", { name: "Last Name" }).fill("The Builder");
-    await page
-      .getByRole("textbox", { name: "Email" })
-      .fill("builder111@gmail.com");
+    await page.getByRole("textbox", { name: "Email" }).fill("builder111@gmail.com");
     await page.getByRole("textbox", { name: "Password" }).fill("bob123123");
     await page.getByRole("button", { name: "Submit" }).click();
   });
 
 
-  test.describe("Contact list flow", () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto("https://thinking-tester-contact-list.herokuapp.com/");
-  });
+  test.describe("Login Test", () => {
 
-    test("login test", async ({ page }) => {
+  test("login test", async ({ page }) => {
   await page.getByRole("textbox", { name: "Email" }).fill("builder111@gmail.com");
-    await page.getByRole("textbox", { name: "Password" }).fill("bob123123");
-    await page.getByRole("button", { name: "Submit" }).click();
+  await page.getByRole("textbox", { name: "Password" }).fill("bob123123");
+  await page.getByRole("button", { name: "Submit" }).click();
+  await expect(page.getByRole("heading", { name: "Contact List" }),).toBeVisible();
   })
 
   test("Add new contact", async ({ page }) => {
@@ -52,7 +48,7 @@ test.describe("lucindapraticetest", () => {
     await page.getByRole("button", { name: "Submit" }).click();
     await expect(page.getByRole("heading", { name: "Contact List" }),).toBeVisible();
 
-    //Add Contact Page should have loaded 
+    //Add Contact Page should have loaded after login 
 
     await page.getByRole('textbox', { name: 'First Name:'}).fill ('Lucinda');
     await page.getByRole ('textbox', { name: 'Last Name:'}).fill ('van der Merwe');
