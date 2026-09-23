@@ -22,18 +22,52 @@ test.describe("lucindapraticetest", () => {
     await page.goto("https://thinking-tester-contact-list.herokuapp.com/");
   });
 
-  test("login test", async ({ page }) => {
+  test("Sign-up test", async ({ page }) => {
     await page.getByRole("button", { name: "Sign up" }).click();
     await page.getByRole("textbox", { name: "First Name" }).fill("Bob");
     await page.getByRole("textbox", { name: "Last Name" }).fill("The Builder");
+    await page
+      .getByRole("textbox", { name: "Email" })
+      .fill("builder111@gmail.com");
+    await page.getByRole("textbox", { name: "Password" }).fill("bob123123");
+    await page.getByRole("button", { name: "Submit" }).click();
+  });
+
+
+  test.describe("Contact list flow", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("https://thinking-tester-contact-list.herokuapp.com/");
+  });
+
+    test("login test", async ({ page }) => {
+  await page.getByRole("textbox", { name: "Email" }).fill("builder111@gmail.com");
+    await page.getByRole("textbox", { name: "Password" }).fill("bob123123");
+    await page.getByRole("button", { name: "Submit" }).click();
+  })
+
+  test("Add new contact", async ({ page }) => {
+    //login to page first 
     await page.getByRole("textbox", { name: "Email" }).fill("builder111@gmail.com");
     await page.getByRole("textbox", { name: "Password" }).fill("bob123123");
     await page.getByRole("button", { name: "Submit" }).click();
+    await expect(page.getByRole("heading", { name: "Contact List" }),).toBeVisible();
 
-    //await expect(page.getByRole('heading', { name: 'Sign up' })).toBeVisible();
+    //Add Contact Page should have loaded 
 
-    //await page.getByRole('checkbox', { name: 'Subscribe' }).check();
+    await page.getByRole('textbox', { name: 'First Name:'}).fill ('Lucinda');
+    await page.getByRole ('textbox', { name: 'Last Name:'}).fill ('van der Merwe');
+    await page.getByRole ('textbox', { name: 'Date of Birth:'}).fill ('2000-11-01'); 
+    await page.getByRole ('textbox', { name: 'Email:'}).fill ('bobtwo@gmail.com');
+    await page.getByRole ('textbox', { name: 'Phone:'}).fill ('0827741444');
+    await page.getByRole ('textbox', { name: 'Street Address 1:'}).fill ('1 Heskwas Avenue');
+    await page.getByRole ('textbox', { name: 'Street Address 2:'}).fill ('Erasmuskloof');
+    await page.getByRole ('textbox', { name: 'City:'}).fill ('Pretoria'); 
+    await page.getByRole ('textbox', { name: 'State or Province:'}).fill ('Gauteng'); 
+    await page.getByRole ('textbox', { name: 'Postal Code:'}).fill ('0047');
+    await page.getByRole ('textbox', { name: 'Country:'}).fill ('South Africa');
+    await page.getByRole ('button', { name: 'Submit'}).click();
 
-    //await page.getByRole('button', { name: /submit/i }).click();
+  });
   });
 });
+
