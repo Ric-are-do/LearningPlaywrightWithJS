@@ -35,8 +35,12 @@ test.describe("lucindapraticetest", () => {
   test.describe("Login Test + Adding new contact", () => {
 
   test("login test", async ({ page }) => {
+  await expect(page.getByRole("textbox", { name: "Email" })).toBeVisible();
   await page.getByRole("textbox", { name: "Email" }).fill("builder111@gmail.com");
+  await expect(page.getByRole("textbox", { name: "Email" })).toHaveValue("builder111@gmail.com");
+await expect(page.getByRole("textbox", { name: "Password" })).toBeVisible();
   await page.getByRole("textbox", { name: "Password" }).fill("bob123123");
+  await expect(page.getByRole("button", { name: "Submit" })).toBeVisible();
   await page.getByRole("button", { name: "Submit" }).click();
   await expect(page.getByRole("heading", { name: "Contact List" }),).toBeVisible();
   })
