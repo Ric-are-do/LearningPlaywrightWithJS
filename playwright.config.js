@@ -41,6 +41,9 @@ export default defineConfig({
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
+
+    // Bypasses SSL certificate validation errors globally.
+    ignoreHTTPSErrors: true,
   },
 
   /* The same tests run against all three engines. Use `--project=chromium`

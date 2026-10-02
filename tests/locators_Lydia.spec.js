@@ -25,27 +25,48 @@ test.describe('Lydia practice tests', () => {
     await page.goto('https://thinking-tester-contact-list.herokuapp.com/');
   });
 
+
   test('signup test', async ({ page }) => {
+    await expect(page).toHaveTitle('Contact List App');
+    await expect(page.getByRole('button', { name: 'Sign up' })).toBeVisible();
     await page.getByRole('button', { name: 'Sign up' }).click();
+    await expect(page).toHaveTitle('Add User');
     await page.getByRole('textbox', { name: 'First Name'}).fill ('Ronald');
     await page.getByRole('textbox', {name: 'Last Name'}).fill ('Smith');
     await page.getByRole('textbox', {name: 'Email'}).fill ('rsmith@test.com');
     await page.getByRole('textbox', {name: 'Password'}).fill ('GoodStuff007');
     await page.getByRole('button', {name: 'Submit'}).click();
+    await expect((/** @type {{ status: () => number; }} */ Response) => Response.status() === 201);
+   
 
   });
 
 
+
+  
   test('login test', async ({ page }) => {
+    await expect(page).toHaveTitle('Contact List App');
+    await expect(page).toHaveURL('https://thinking-tester-contact-list.herokuapp.com');
+    await expect(page.getByRole('textbox', { name: 'Email' })).toBeVisible();
     await page.getByRole('textbox', { name: 'Email' }).fill('rsmith@test.com');
+    await expect(page.getByRole('textbox', { name: 'Password' })).toBeVisible();
     await page.getByRole('textbox', { name: 'Password' }).fill('GoodStuff007');
+    await expect(page.getByRole('button', { name: 'Submit'})).toBeVisible(); 
     await page.getByRole('button', { name: 'Submit'}).click(); 
+    const response = await page.request.get('https://thinking-tester-contact-list.herokuapp.com/users/login');
+   await expect(response).toBeOK();
+   //console.log(response.status());
 
   });
 
 
  test('adding new contacts', async ({ page}) => {
-    await expect(page.getByRole('heading', { name: 'Add Contact' })).toBeVisible();
+    await expect(page).toHaveTitle('Contact List App');
+    await page.getByRole('button', {name: 'Add a New Contact'}).click();
+    await expect(page).toHaveURL('https://thinking-tester-contact-list.herokuapp.com/contacts/add');
+    await page.getByRole('textbox', { name: 'First Name:'}).fill ('Samantha');
+    await page.getByRole ('textbox', { name: 'Last Name:'}).fill ('Dirr');
+    await page.getByRole ('textbox', { name: 'Date of Birth:'}).fill ('1990-01-12'); 
     await page.getByRole('textbox', { name: 'Email' }).fill('rsmith@test.com');
     await page.getByRole('textbox', { name: 'Password' }).fill('GoodStuff007');
     await page.getByRole('button', { name: 'Submit' }).click();
@@ -65,6 +86,9 @@ test.describe('Lydia practice tests', () => {
 
 
  });
+
+
+ 
 
 
 
