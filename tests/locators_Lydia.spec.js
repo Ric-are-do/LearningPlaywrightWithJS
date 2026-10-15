@@ -27,16 +27,25 @@ test.describe('Lydia practice tests', () => {
 
 
   test('signup test', async ({ page }) => {
+    const signupButton_locator = page.getByRole('button', { name: 'Sign up' });
+    const firstName_locator = page.getByRole('textbox', { name: 'First Name'}); 
+    const lastName_locator = page.getByRole('textbox', {name: 'Last Name'}); 
+    const email_locator = page.getByRole('textbox', {name: 'Email'}); 
+    const password_locator = page.getByRole('textbox', {name: 'Password'}); 
+    const submitButton_locator = page.getByRole('button', {name: 'Submit'});
+
+
+
     await expect(page).toHaveTitle('Contact List App');
-    await expect(page.getByRole('button', { name: 'Sign up' })).toBeVisible();
-    await page.getByRole('button', { name: 'Sign up' }).click();
+    await expect(signupButton_locator).toBeVisible();
+    await signupButton_locator.click();
     await expect(page).toHaveTitle('Add User');
-    await page.getByRole('textbox', { name: 'First Name'}).fill ('Ronald');
-    await page.getByRole('textbox', {name: 'Last Name'}).fill ('Smith');
-    await page.getByRole('textbox', {name: 'Email'}).fill ('rsmith@test.com');
-    await page.getByRole('textbox', {name: 'Password'}).fill ('GoodStuff007');
-    await page.getByRole('button', {name: 'Submit'}).click();
-    await expect((/** @type {{ status: () => number; }} */ Response) => Response.status() === 201);
+    await firstName_locator.fill ('Ronald');
+    await lastName_locator.fill ('Smith');
+    await email_locator.fill ('rsmith@test.com');
+    await password_locator.fill ('GoodStuff007');
+    await submitButton_locator.click();
+    //await expect((/** @type {{ status: () => number; }} */ Response) => Response.status() === 201);
    
 
   });
@@ -45,19 +54,43 @@ test.describe('Lydia practice tests', () => {
 
   
   test('login test', async ({ page }) => {
+    const testSiteURL = 'https://thinking-tester-contact-list.herokuapp.com/';
+    const userEmail_locator = page.getByRole('textbox', {name:'Email'});
+    const userPassowrd_locator = page.getByRole('textbox', {name:'Password'});
+    const submitButton_locator = page.getByRole('button', {name:'Submit'});
+    const logoutButton_locator = page.getByText('Logout');
+    const addNewContactButton_locator = page.getByText('Add a New Contact');
+  
+
+
     await expect(page).toHaveTitle('Contact List App');
-    await expect(page).toHaveURL('https://thinking-tester-contact-list.herokuapp.com');
-    await expect(page.getByRole('textbox', { name: 'Email' })).toBeVisible();
-    await page.getByRole('textbox', { name: 'Email' }).fill('rsmith@test.com');
-    await expect(page.getByRole('textbox', { name: 'Password' })).toBeVisible();
-    await page.getByRole('textbox', { name: 'Password' }).fill('GoodStuff007');
-    await expect(page.getByRole('button', { name: 'Submit'})).toBeVisible(); 
-    await page.getByRole('button', { name: 'Submit'}).click(); 
-    const response = await page.request.get('https://thinking-tester-contact-list.herokuapp.com/users/login');
-   await expect(response).toBeOK();
+    await expect(page).toHaveURL(testSiteURL);
+    await expect(userEmail_locator).toBeVisible();
+    await userEmail_locator.fill('rsmith@test.com');
+    await expect(userPassowrd_locator).toBeVisible();
+    await userPassowrd_locator.fill('GoodStuff007');
+    await expect(submitButton_locator).toBeVisible(); 
+    await submitButton_locator.click(); 
+    await expect(page).toHaveURL('https://thinking-tester-contact-list.herokuapp.com/contactList');
+    await expect(logoutButton_locator).toBeVisible(); //to get this, go inspect > accessability
+    await expect(page.getByText('Contact List')).toBeVisible();
+    await expect(page.getByText('Logout')).toBeVisible(); //we don't always get roles in accessability tab, so then we use another type of locator, 
+    await expect(addNewContactButton_locator).toBeVisible();
+    await expect (page.locator('id=logout')).toBeVisible();
+    await expect (page.locator('id=add-contact')).toBeVisible(); 
+    await page.locator('id=logout').click();
+
+  
+    //const response = await page.request.get('https://thinking-tester-contact-list.herokuapp.com/users/login');
+   //await expect(response).toBeOK();
    //console.log(response.status());
 
   });
+
+
+// getting by ID
+     // await page.locator("id=Logout").click();
+     //await page.locator("#Logout").click();
 
 
  test('adding new contacts', async ({ page}) => {
@@ -87,7 +120,7 @@ test.describe('Lydia practice tests', () => {
 
  });
 
-
+page
  
 
 
