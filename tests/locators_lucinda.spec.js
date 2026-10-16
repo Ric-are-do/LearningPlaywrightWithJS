@@ -18,35 +18,37 @@ import { test, expect } from "@playwright/test";
  */
 
 test.describe("lucindapracticetest", () => {
-let emailaddress= "builder111@gmail.com";
-let firstName= "Bob";
-let lastName= "The Builder";
-let password= "bob123123";
+  const emailaddress = "builder111@gmail.com";
+  const firstName = "Bob";
+  const lastName = "The Builder";
+  const password = "bob123123";
 
-let addcontactfirstname= "Lucinda";
-let addcontactlastname= "van der Merwe";
-let addcontactdob= "2000-11-01";
-let addcontactemail="testmail@testmail.com";
-let addcontactphone= "0827741444";
-let addcontactstreetaddress1= "1 Heskwas Avenue";
-let addcontactstreetaddress2= "Erasmuskloof";
-let addcontactcity= "Pretoria";
-let addcontactstateorprovince= "Gauteng";
-let addcontactpostalcode= "0047";
-let addcontactcountry= "South Africa";
+  const addcontactfirstname = "Lucinda";
+  const addcontactlastname = "van der Merwe";
+  const addcontactdob = "2000-11-01";
+  const addcontactemail = "testmail@testmail.com";
+  const addcontactphone = "0827741444";
+  const addcontactstreetaddress1 = "1 Heskwas Avenue";
+  const addcontactstreetaddress2 = "Erasmuskloof";
+  const addcontactcity = "Pretoria";
+  const addcontactstateorprovince = "Gauteng";
+  const addcontactpostalcode = "0047";
+  const addcontactcountry = "South Africa";
+
+  const landingPageURL = "https://thinking-tester-contact-list.herokuapp.com/";
 
   test.beforeEach(async ({ page }) => {
-    await page.goto("https://thinking-tester-contact-list.herokuapp.com/");
+    await page.goto(landingPageURL);
   });
 
-  
   test("Sign-up test", async ({ page }) => {
-   const submitSignupButton = page.getByRole("button",{name: "Submit"});
-   const signupButton = page.getByRole ("button", {name: "Sign up"});
-   const signupFirstName= page.getByRole("textbox",{name:"First Name"});
-   const signupLastName=page.getByRole("textbox",{name:"Last Name"})
-   const signupEmail= page.getByRole("textbox", {name: "Email"});
-   const signupPassword= page.getByRole("textbox", {name: "Password"});
+    const submitSignupButton = page.getByRole("button", { name: "Submit" });
+    const signupButton = page.getByRole("button", { name: "Sign up" });
+    const signupFirstName = page.getByRole("textbox", { name: "First Name" });
+    const signupLastName = page.getByRole("textbox", { name: "Last Name" });
+    const signupEmail = page.getByRole("textbox", { name: "Email" });
+    const signupPassword = page.getByRole("textbox", { name: "Password" });
+
     await signupButton.click();
     await signupFirstName.fill(firstName);
     await signupLastName.fill(lastName);
@@ -55,46 +57,65 @@ let addcontactcountry= "South Africa";
     await submitSignupButton.click();
   });
 
-  test.describe("Login Test + Adding new contact", () => {
-    test("login test", async ({ page }) => {
 
-      await expect(page.getByRole("textbox", { name: "Email" })).toBeVisible();
-      await page.getByRole("textbox", { name: "Email" }).fill(emailaddress);
-      await expect(page.getByRole("textbox", { name: "Email" })).toHaveValue(emailaddress);
-      await expect(page.getByRole("textbox", { name: "Password" }),).toBeVisible();
-      await page.getByRole("textbox", { name: "Password" }).fill(password);
-      await expect(page.getByRole("button", { name: "Submit" })).toBeVisible();
-      await page.getByRole("button", { name: "Submit" }).click();
-      await expect(page.getByText("Contact List")).toBeVisible();
-      await expect(page.getByText("Logout")).toBeVisible();
-      await expect(page.getByText("Click on any contact to view the Contact Details"),).toBeVisible();
-      await expect(page.locator("#add-contact")).toBeVisible();
-      await expect(page.getByText("Created by Kristin Jackvony, Copyright 2021 "),).toBeVisible();
-      await page.locator("#logout").click();
+  test("login test", async ({ page }) => {
+        const loginEmail = page.getByRole("textbox", { name: "Email" });
+        const loginPassword = page.getByRole("textbox", { name: "Password" });
+        const submitLoginButton = page.getByRole("button", { name: "Submit" });
 
-    });
+    await expect(page.getByRole("textbox", { name: "Email" })).toBeVisible();
+    await loginEmail.fill(emailaddress);
+    await expect(page.getByRole("textbox", { name: "Email" })).toHaveValue(emailaddress, );
+    await expect(page.getByRole("textbox", { name: "Password" })).toBeVisible();
+    await loginPassword.fill(password);
+    await expect(page.getByRole("button", { name: "Submit" })).toBeVisible();
+    await submitLoginButton.click();
+    await expect(page.getByText("Contact List")).toBeVisible();
+    await expect(page.getByText("Logout")).toBeVisible();
+    await expect(page.getByText("Click on any contact to view the Contact Details"),).toBeVisible();
+    await expect(page.locator("#add-contact")).toBeVisible();
+    await expect(page.getByText("Created by Kristin Jackvony, Copyright 2021 "),).toBeVisible();
+    await page.locator("#logout").click();
+  });
 
-    test("Add new contact", async ({ page }) => {
-      //login to page first
-      await page.getByRole("textbox", { name: "Email" }).fill(emailaddress);
-      await page.getByRole("textbox", { name: "Password" }).fill(password);
-      await page.getByRole("button", { name: "Submit" }).click();
-      await expect(page.getByRole("heading", { name: "Contact List" }),).toBeVisible();
+  test("Add new contact", async ({ page }) => {
+    //login to page first
 
-      //Add Contact Page should have loaded after login
+    const loginEmail = page.getByRole("textbox", { name: "Email" });
+    const loginPassword = page.getByRole("textbox", { name: "Password" });
+    const submitLoginButton = page.getByRole("button", { name: "Submit" });
 
-      await page.getByRole("textbox", { name: "First Name:" }).fill(addcontactfirstname);
-      await page.getByRole("textbox", { name: "Last Name:" }).fill(addcontactlastname);
-      await page.getByRole("textbox", { name: "Date of Birth:" }).fill(addcontactdob);
-      await page.getByRole("textbox", { name: "Email:" }).fill(addcontactemail);
-      await page.getByRole("textbox", { name: "Phone:" }).fill(addcontactphone);
-      await page.getByRole("textbox", { name: "Street Address 1:" }).fill(addcontactstreetaddress1);
-      await page.getByRole("textbox", { name: "Street Address 2:" }).fill(addcontactstreetaddress2);
-      await page.getByRole("textbox", { name: "City:" }).fill(addcontactcity);
-      await page.getByRole("textbox", { name: "State or Province:" }).fill(addcontactstateorprovince);
-      await page.getByRole("textbox", { name: "Postal Code:" }).fill(addcontactpostalcode);
-      await page.getByRole("textbox", { name: "Country:" }).fill(addcontactcountry);
-      await page.getByRole("button", { name: "Submit" }).click();
-    });
+    await loginEmail.fill(emailaddress);
+    await loginPassword.fill(password);
+    await submitLoginButton.click();
+    await expect(page.getByRole("heading", { name: "Contact List" }),).toBeVisible();
+
+    //Add Contact Page should have loaded after login
+
+  const contactfirstname = page.getByRole("textbox", { name: "First Name:" });
+  const contactlastname = page.getByRole("textbox", { name: "Last Name:" });
+  const contactdob = page.getByRole("textbox", { name: "Date of Birth:" });
+  const contactemail = page.getByRole("textbox", { name: "Email:" });
+  const contactphone = page.getByRole("textbox", { name: "Phone:" });
+  const contactstreetaddress1 = page.getByRole("textbox", { name: "Street Address 1:" });
+  const contactstreetaddress2 = page.getByRole("textbox", { name: "Street Address 2:" });
+  const contactcity = page.getByRole("textbox", { name: "City:" });
+  const contactstateorprovince = page.getByRole("textbox", { name: "State or Province:" });
+  const contactpostalcode = page.getByRole("textbox", { name: "Postal Code:" });
+  const contactcountry = page.getByRole("textbox", { name: "Country:" });
+  const submitcontactbutton = page.getByRole("button",{name:"Submit"});
+
+    await contactfirstname.fill(addcontactfirstname);
+    await contactlastname.fill(addcontactlastname);
+    await contactdob.fill(addcontactdob);
+    await contactemail.fill(addcontactemail);
+    await contactphone.fill(addcontactphone);
+    await contactstreetaddress1.fill(addcontactstreetaddress1);
+    await contactstreetaddress2.fill(addcontactstreetaddress2);
+    await contactcity.fill(addcontactcity);
+    await contactstateorprovince.fill(addcontactstateorprovince);
+    await contactpostalcode.fill(addcontactpostalcode);
+    await contactcountry  .fill(addcontactcountry);
+    await submitcontactbutton.click();
   });
 });
